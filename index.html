@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Korb</title>
+  <meta name="description" content="Die Einkaufsliste für euren Haushalt. Live geteilt, ohne Konto, ohne Werbung.">
+  <meta name="theme-color" content="#f2f3ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0d0c" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Korb">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="vendor/supabase-2.118.0.js" defer></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <div id="app"><div class="boot" aria-live="polite">Korb lädt …</div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <noscript>Korb braucht JavaScript.</noscript>
+</body>
+</html>

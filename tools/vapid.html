@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Korb – Push-Schlüssel</title>
+<style>
+  :root { color-scheme: light dark; --bg: #f2f3ef; --fg: #141915; --card: #fff; --accent: #1d8456; --muted: #5b635d; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0b0d0c; --fg: #eff2ef; --card: #181b19; --accent: #38c482; --muted: #9aa39c; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.45 -apple-system, system-ui, sans-serif; }
+  main { max-width: 640px; margin: 0 auto; padding: 32px max(16px, env(safe-area-inset-left)); display: grid; gap: 16px; }
+  h1 { margin: 0; font-size: 28px; }
+  p { margin: 0; color: var(--muted); }
+  button { font: inherit; font-weight: 600; border: 0; border-radius: 14px; height: 48px; padding: 0 20px; background: var(--accent); color: #fff; cursor: pointer; }
+  .card { background: var(--card); border-radius: 16px; padding: 14px; display: grid; gap: 6px; }
+  .card b { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  code { font: 14px ui-monospace, Menlo, monospace; word-break: break-all; user-select: all; }
+  .warn { color: #c0392b; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Push-Schlüssel für Korb</h1>
+  <p>Erzeugt ein VAPID-Schlüsselpaar direkt in diesem Browser. Nichts wird gesendet oder gespeichert. Einmal erzeugen, dann wie in der README beschrieben eintragen.</p>
+  <button type="button" id="go">Schlüssel erzeugen</button>
+  <div id="out" hidden>
+    <div class="card"><b>Öffentlicher Schlüssel → js/config.js und Secret VAPID_PUBLIC_KEY</b><code id="pub"></code></div>
+    <div class="card" style="margin-top:12px"><b>Privater Schlüssel → nur Secret VAPID_PRIVATE_KEY</b><code id="priv"></code>
+      <p class="warn">Geheim halten. Nicht in GitHub, nicht in config.js, nicht in Chats.</p></div>
+  </div>
+</main>
+<script>
+  const b64url = (bytes) => btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  document.getElementById('go').onclick = async () => {
+    const kp = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
+    const raw = new Uint8Array(await crypto.subtle.exportKey('raw', kp.publicKey));
+    const jwk = await crypto.subtle.exportKey('jwk', kp.privateKey);
+    document.getElementById('pub').textContent = b64url(raw);
+    document.getElementById('priv').textContent = jwk.d;
+    document.getElementById('out').hidden = false;
+  };
+</script>
+</body>
+</html>

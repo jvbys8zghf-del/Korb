@@ -1,6 +1,6 @@
 // Korb – Service Worker: App offline verfügbar machen, Mitteilungen anzeigen.
 // Bei jeder Änderung an App-Dateien VERSION erhöhen, dann bekommen alle Geräte den Hinweis „Neue Version“.
-const VERSION = 'korb-v2';
+const VERSION = 'korb-v3';
 const SHELL = [
   './', './index.html', './manifest.webmanifest', './css/app.css',
   './js/main.js', './js/store.js', './js/backend.js', './js/config.js', './js/idb.js', './js/logic.js', './js/catalog.js',

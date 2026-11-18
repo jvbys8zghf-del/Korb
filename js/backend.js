@@ -11,16 +11,20 @@ export function createSupabaseBackend() {
     realtime: { params: { eventsPerSecond: 20 } },
   });
   let dataChannel = null, presenceChannel = null;
+  let authPromise = null; // genau eine Anmeldung, auch wenn mehrere Stellen gleichzeitig fragen
 
   const unwrap = ({ data, error }) => { if (error) throw Object.assign(new Error(error.message || 'Fehler'), { cause: error }); return data; };
 
   return {
     kind: 'supabase',
-    async ensureAuth() {
-      const { data } = await client.auth.getSession();
-      if (data.session) return data.session.user.id;
-      const res = unwrap(await client.auth.signInAnonymously());
-      return res.user.id;
+    ensureAuth() {
+      authPromise = authPromise || (async () => {
+        const { data } = await client.auth.getSession();
+        if (data.session) return data.session.user.id;
+        const res = unwrap(await client.auth.signInAnonymously());
+        return res.user.id;
+      })().catch((e) => { authPromise = null; throw e; });
+      return authPromise;
     },
     rpc: async (name, args) => unwrap(await client.rpc(name, args)),
     async pull(table, householdId, since) {

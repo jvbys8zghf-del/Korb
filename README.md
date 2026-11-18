@@ -12,6 +12,8 @@ Die Einkaufsliste für euren Haushalt. Eine Web-App für das iPhone, die auf den
 - Mehrere Listen mit Farbe, Beitritt per Code, Rückkehr nach Gerätewechsel
 - Offline voll bedienbar, Änderungen werden nachgeliefert
 
+**Euer Korb:** https://jvbys8zghf-del.github.io/Korb/ (Supabase-Projekt `cuzxgsvrxoldzojbjhvx`, Region eu-west-1). Einrichtung erledigt; die Schritte unten braucht ihr nur für ein neues Projekt.
+
 **Technik:** Statische Web-App (HTML, CSS, JavaScript, kein Build-Schritt) auf GitHub Pages, Daten in Supabase (Postgres mit Zugriffsregeln, Realtime, zwei Edge Functions).
 
 ---
@@ -50,7 +52,7 @@ Ohne diese Funktion klappt der Rezeptimport trotzdem, wenn man die Zutatenliste 
 1. Auf GitHub ein Repository `korb` anlegen (**Public**, sonst ist Pages kostenpflichtig). Die Daten bleiben trotzdem geschützt: Sie liegen in Supabase, nicht im Code.
 2. Alle Dateien dieses Ordners hochladen (*Add file → Upload files*), inklusive `.nojekyll`.
 3. **Settings → Pages → Build and deployment**: Source *Deploy from a branch*, Branch `main`, Ordner `/ (root)` → **Save**.
-4. Nach 1–2 Minuten läuft Korb unter `https://DEIN-NAME.github.io/korb/`.
+4. Nach 1–2 Minuten läuft Korb unter `https://DEIN-NAME.github.io/REPO-NAME/`. Groß- und Kleinschreibung des Repo-Namens zählen.
 
 ### 5. Auf die iPhones bringen
 1. Die Adresse in **Safari** öffnen (nicht in Chrome oder in der Vorschau eines Messengers).
